@@ -17,7 +17,8 @@ class IngredientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'qty' => $this->faker->randomNumber()
         ];
     }
 }
