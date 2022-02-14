@@ -32,11 +32,16 @@
 
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $ingredient->name }}
+
+                                                {{ ucwords($ingredient->name) }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                                                {{ $ingredient->qty }} kg
+                                                @if ($ingredient->qty >= 1000)
+                                                    {{ $ingredient->qty / 1000 }} kg
+                                                @elseif($ingredient->qty < 1000)
+                                                    {{ $ingredient->qty }} g
+                                                @endif
                                             </td>
 
                                         </tr>

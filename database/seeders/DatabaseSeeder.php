@@ -17,19 +17,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         Ingredient::factory(1)->create([
             'name' => 'beef',
-            'qty' => 20,
+            'qty' => 20000,
         ]);
         Ingredient::factory(1)->create([
             'name' => 'cheese',
-            'qty' => 5,
+            'qty' => 5000,
         ]);
         Ingredient::factory(1)->create([
             'name' => 'onion',
-            'qty' => 1,
+            'qty' => 1000,
         ]);
 
-        Product::factory(1)->create();
+        Product::factory(1)->create([
+            'name' => 'burger',
+        ]);
     }
 }
