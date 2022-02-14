@@ -29,4 +29,11 @@ class OrderController extends Controller
 
         return redirect('/');
     }
+
+    public function destroy(Order $order)
+    {
+        $order->delete();
+
+        return redirect('/');
+    }
 }

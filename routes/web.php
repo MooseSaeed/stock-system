@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-route::get('/', [OrderController::class, 'index']);
-route::post('/neworder', [OrderController::class, 'store']);
+Route::get('/', [OrderController::class, 'index']);
+Route::post('/neworder', [OrderController::class, 'store']);
+Route::delete('/orders/{order:id}', [OrderController::class, 'destroy']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
