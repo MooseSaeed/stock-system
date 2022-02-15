@@ -34,20 +34,20 @@ class StockAlert
 
         $ingredients = Ingredient::all();
 
-        if ($userinfo->notified === 'yes') {
-            return redirect('/');
-        } else {
-            foreach ($ingredients as $ingredient) {
+        foreach ($ingredients as $ingredient) {
+
+            if ($ingredient->notification_sent === 'yes') {
+                return redirect('/');
+            } else {
                 if ($ingredient->qty <= $ingredient->half_qty) {
 
-                    $saveHistory = DB::table('users')->where('id', 1)->update(
-                        ['notified' => 'yes']
+                    DB::table('ingredients')->where('id', $ingredient->id)->update(
+                        ['notification_sent' => 'yes']
                     );
 
                     SendMailController::sendnotif();
                 }
             }
-            return $saveHistory;
         }
     }
 }

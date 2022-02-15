@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('qty');
             $table->text('half_qty');
+            $table->string('notification_sent')->nullable();
             $table->timestamps();
         });
     }
