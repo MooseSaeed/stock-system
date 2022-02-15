@@ -35,8 +35,7 @@ class StockAlert
         $ingredients = Ingredient::all();
 
         if ($userinfo->notified === 'yes') {
-
-            dd('user already notified');
+            return redirect('/');
         } else {
             foreach ($ingredients as $ingredient) {
                 if ($ingredient->qty <= $ingredient->half_qty) {
@@ -46,10 +45,9 @@ class StockAlert
                     );
 
                     SendMailController::sendnotif();
-
-                    return $saveHistory;
                 }
             }
+            return $saveHistory;
         }
     }
 }
