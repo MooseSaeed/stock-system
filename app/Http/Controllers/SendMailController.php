@@ -24,6 +24,6 @@ class SendMailController extends Controller
 
         FacadesNotification::send($user, new StockNotification($details));
 
-        dd('Done');
+        return redirect('/send/email');
     }
 }

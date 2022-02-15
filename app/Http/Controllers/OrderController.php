@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StockNotif;
 use App\Models\Ingredient;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -31,6 +33,10 @@ class OrderController extends Controller
         $success = Order::create($attributes);
 
         $this->deduct($success, $qty);
+
+        $user = Auth::user();
+
+        event(new StockNotif($user));
 
         return redirect('/');
     }
