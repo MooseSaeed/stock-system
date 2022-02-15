@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\Ingredient;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +34,13 @@ class DatabaseSeeder extends Seeder
             'name' => 'onion',
             'qty' => 1000,
             'half_qty' => 500,
+        ]);
+
+        User::factory(1)->create([
+            'id' => 1,
+            'name' => 'Mostafa Saeed',
+            'email' => 'mostafasaid1994@gmail.com',
+            'password' => Hash::make('password'),
         ]);
 
         Product::factory(1)->create([
