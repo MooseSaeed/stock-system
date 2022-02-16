@@ -28,14 +28,17 @@ class OrderController extends Controller
             'qty' => 'required'
         ]);
 
+        // Catching quantity input
         $qty = request('qty');
 
+        // Create Order
         $success = Order::create($attributes);
 
+        // Update stock with inout quantity upon order success
         $this->stockUpdateOnOrder($success, $qty);
 
+        // Firing an event to send e-mails conditionally
         $user = Auth::user();
-
         event(new StockNotif($user));
 
         return redirect('/');
@@ -43,11 +46,13 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-
+        // Catching quantity of the selected order
         $qty = $order->qty;
 
+        // Delete order
         $success = $order->delete();
 
+        // Update stock with inout quantity upon order delete
         $this->stockUpdateOnDelete($success, $qty);
 
         return redirect('/');
@@ -55,6 +60,7 @@ class OrderController extends Controller
 
     public function stockUpdateOnOrder($success, $qty)
     {
+
         if ($success) {
 
             $deductBeef = 150 * $qty;

@@ -36,10 +36,17 @@ class StockAlert
 
         foreach ($ingredients as $ingredient) {
 
+            // Check if notification already sent for this particular ingredient
+
             if ($ingredient->notification_sent === 'yes') {
                 return redirect('/');
             } else {
+
+                // Check if ingredient quantity in stock less than 50%
+
                 if ($ingredient->qty <= $ingredient->half_qty) {
+
+                    // Update notification sent and fire the mail to notify the user
 
                     DB::table('ingredients')->where('id', $ingredient->id)->update(
                         ['notification_sent' => 'yes']
