@@ -22,7 +22,7 @@ class OrderController extends Controller
     }
     public function store()
     {
-
+        // Validate request
         $attributes = request()->validate([
             'product_id' => 'required',
             'qty' => 'required'
@@ -32,7 +32,7 @@ class OrderController extends Controller
 
         $success = Order::create($attributes);
 
-        $this->deduct($success, $qty);
+        $this->stockUpdateOnOrder($success, $qty);
 
         $user = Auth::user();
 
@@ -48,12 +48,12 @@ class OrderController extends Controller
 
         $success = $order->delete();
 
-        $this->increase($success, $qty);
+        $this->stockUpdateOnDelete($success, $qty);
 
         return redirect('/');
     }
 
-    public function deduct($success, $qty)
+    public function stockUpdateOnOrder($success, $qty)
     {
         if ($success) {
 
@@ -66,7 +66,7 @@ class OrderController extends Controller
             DB::table('ingredients')->where(['id' => 3])->decrement('qty', $deductOnion);
         }
     }
-    public function increase($success, $qty)
+    public function stockUpdateOnDelete($success, $qty)
     {
         if ($success) {
 
